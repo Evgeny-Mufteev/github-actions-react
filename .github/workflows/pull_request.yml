@@ -5,6 +5,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Print context
+        shell: cmd
         run: |
           echo "${{ toJSON(github) }}"
           Write-Host "${{ toJSON(github) }}"
