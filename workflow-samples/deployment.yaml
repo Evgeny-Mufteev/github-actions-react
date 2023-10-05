@@ -1,25 +1,42 @@
 name: Deploy  React App
 on: push
 jobs:
-  deploy:
+  test:
     runs-on: windows-latest
     steps:
-      # Получаю код из репозитория
       - name: Get the repository code
         uses: actions/checkout@v4
-        # Устанавливаю зависимости
+
       - name: Install dependecies
         run: npm ci
-        # Прохожу тесты
+
       - name: Test application
         run: npm run test
-        # Прохожу линт
+  lint:
+    runs-on: windows-latest
+    needs: test
+    steps:
+      - name: Get the repository code
+        uses: actions/checkout@v4
+
+      - name: Install dependecies
+        run: npm ci
+
       - name: Lint application
         run: npm run lint
-        # Создаюбилд
+  build:
+    runs-on: windows-latest
+    needs: lint
+    steps:
+      - name: Get the repository code
+        uses: actions/checkout@v4
+
+      - name: Install dependecies
+        run: npm ci
+
       - name: Build application
         run: npm run build
-        # Выввожу в консоль
+
       - name: Deploy
         run: |
           Write-Host "Deploying"
