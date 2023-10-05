@@ -6,5 +6,5 @@ jobs:
     steps:
       - name: Print context
         run: |
-          echo "${{ github}}"
-          Write-Host "${{ github}}"
+          echo "${{ toJson(github)}}"
+          Write-Host "${{ toJson(github)}}"
