@@ -14,6 +14,7 @@ jobs:
         run: npm run test
   lint:
     runs-on: windows-latest
+    needs: test
     steps:
       - name: Get the repository code
         uses: actions/checkout@v4
@@ -25,6 +26,7 @@ jobs:
         run: npm run lint
   build:
     runs-on: windows-latest
+    needs: lint
     steps:
       - name: Get the repository code
         uses: actions/checkout@v4
@@ -34,3 +36,10 @@ jobs:
 
       - name: Build application
         run: npm run build
+
+      - name: Deploy
+        run: |
+          Write-Host "Deploying"
+          echo Deploying
+
+#  needs - Если нужно дождаться выполнения определенных работ
