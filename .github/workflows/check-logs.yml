@@ -1,0 +1,26 @@
+name: Check Logs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  check-logs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Check for console.log
+        run: |
+          if grep -rq "console.log" .; then
+            echo "::error::Found console.log. Push to master is not allowed."
+            exit 1
+          fi
